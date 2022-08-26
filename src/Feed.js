@@ -1,59 +1,51 @@
-//import { faker } from '@faker-js/faker';
 import { render } from '@testing-library/react';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Evento from './Evento';
+import axios from 'axios';
 
-
-const carregando = () =>{
-    return(
-        <div class="ui feed">
-            <div class="ui active inverted dimmer">
-                <div class="ui text loader">
-                    Carregando...
-                </div>
-            </div>
-        <p></p>
-        </div>
-    );
-}
+const Feed = () => {
+    const [state,setState] = useState({carregando:true,eventos: [], msgErro: '' });
     
-
-class Feed extends React.Component {    
-    constructor(props){
-        super(props);
-        this.state = {carregando: true, eventos: []};
-    }
-    
-    render(){
-        if(this.state.carregando){
-            setTimeout(
-                ()=> this.setState(
-                    {carregando: false, eventos: eventosConst},
-                    ),
-                    1000
-                )
-            return carregando();
-        }else{
-            const componentesEventos = this.state.eventos.map(x=>
-                (<Evento 
-                    image = {x.image}
-                    usuario={x.usuario} 
-                    likes={x.likes} 
-                    action={x.action}
-                    date={x.date}
-                    link={x.link}
-                />)                    
+    const Atualizar = () =>{
+        axios.get('https://localhost:3000/feeds')
+        .then(resp =>{
+            setState(
+                {carregando:false, eventos:resp.data, msgErro: ''}
             )
-            
-            return(
-                <div className="ui feed">
-                    {componentesEventos}
-                </div>
-            );
-        }
-
+        }).catch(erro => {
+            setState({carregando:false, eventos:[], msgErro: erro.message})
+        });;
     }
-};
+
+    useEffect(()=>Atualizar());
+
+    if(state.carregando){
+        return <div>Carregando...</div>;
+    }else{
+        const componentesEventos = state.eventos.map(x =>
+            (
+                <Evento
+                key={x.id}
+                objeto={x}
+                atualizar={Atualizar}
+                />
+            )
+        );
+
+        const msgErro = state.msgErro ?
+        (<div className='ui red message'>
+            {state.msgErro}
+        </div>) : null;
+
+        return (
+            <div className='ui feed'>
+                {msgErro}
+                {componentesEventos}
+            </div>
+        )
+    }
+}
+
 
 const eventosConst = [
     {
