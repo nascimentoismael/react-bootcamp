@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+//import { render } from '@testing-library/react';
 import React, {useEffect, useState} from 'react';
 import Evento from './Evento';
 import axios from 'axios';
@@ -45,33 +45,5 @@ const Feed = () => {
         )
     }
 }
-
-
-const eventosConst = [
-    {
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwaCbwTQ_Zm4s8f4Ln3BF1LLMyKFakmYCbQhzDTq4&s",
-        usuario: "AAA" ,
-        likes: "10 likes" ,
-        action: " added you as a friend",
-        date: "yesterday",
-        link: "https://www.google.com.br"
-    },
-    {
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwaCbwTQ_Zm4s8f4Ln3BF1LLMyKFakmYCbQhzDTq4&s",
-        usuario: "BBB" ,
-        likes: "10 likes" ,
-        action: " added you as a friend",
-        date: "yesterday",
-        link: "https://www.google.com.br"
-    },
-    {
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwaCbwTQ_Zm4s8f4Ln3BF1LLMyKFakmYCbQhzDTq4&s",
-        usuario: "CCC" ,
-        likes: "10 likes" ,
-        action: " added you as a friend",
-        date: "yesterday",
-        link: "https://www.google.com.br"
-    }
-];
 
 export default Feed;
