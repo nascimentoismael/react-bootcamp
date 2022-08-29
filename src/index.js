@@ -1,6 +1,15 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import Feed from './Feed';
+import Contato from './Contato';
+
+
+const App = function() {
+  //return <h1><Feed /></h1>;
+  return <div><Contato /></div>;
+};
+
+ReactDom.render(<App />, document.querySelector("#root"));
 
 // const data = new Date();
 // data.getHours()
@@ -28,9 +37,4 @@ import Feed from './Feed';
 //   );
 // };
 
-const App = function() {
-  return <h1><Feed /></h1>;
-  
-};
 
-ReactDom.render(<App />, document.querySelector("#root"));
